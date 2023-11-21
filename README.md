@@ -7,7 +7,7 @@
 ## Prerequest
 
 - Install Docker & Docker Compose  
-    | Follow the instruction from official document  
+    > Follow the instruction from the official document  
     - [Install Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubuntu/)  
     - [Install and Use Docker Compose](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04)
 
