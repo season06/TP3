@@ -1,0 +1,25 @@
+/usr/bin/java  -classpath /home/xizhen/tp3/ycsb-0.17.0/conf:/home/xizhen/tp3/ycsb-0.17.0/lib/HdrHistogram-2.1.4.jar:/home/xizhen/tp3/ycsb-0.17.0/lib/core-0.17.0.jar:/home/xizhen/tp3/ycsb-0.17.0/lib/htrace-core4-4.1.0-incubating.jar:/home/xizhen/tp3/ycsb-0.17.0/lib/jackson-core-asl-1.9.4.jar:/home/xizhen/tp3/ycsb-0.17.0/lib/jackson-mapper-asl-1.9.4.jar:/home/xizhen/tp3/ycsb-0.17.0/redis-binding/lib/commons-pool2-2.4.2.jar:/home/xizhen/tp3/ycsb-0.17.0/redis-binding/lib/jedis-2.9.0.jar:/home/xizhen/tp3/ycsb-0.17.0/redis-binding/lib/redis-binding-0.17.0.jar site.ycsb.Client -t -db site.ycsb.db.RedisClient -s -P workloads/workloadc -p redis.host=127.0.0.1 -p redis.port=6379
+[OVERALL], RunTime(ms), 445
+[OVERALL], Throughput(ops/sec), 2247.191011235955
+[TOTAL_GCS_G1_Young_Generation], Count, 2
+[TOTAL_GC_TIME_G1_Young_Generation], Time(ms), 20
+[TOTAL_GC_TIME_%_G1_Young_Generation], Time(%), 4.49438202247191
+[TOTAL_GCS_G1_Old_Generation], Count, 0
+[TOTAL_GC_TIME_G1_Old_Generation], Time(ms), 0
+[TOTAL_GC_TIME_%_G1_Old_Generation], Time(%), 0.0
+[TOTAL_GCs], Count, 2
+[TOTAL_GC_TIME], Time(ms), 20
+[TOTAL_GC_TIME_%], Time(%), 4.49438202247191
+[READ], Operations, 1000
+[READ], AverageLatency(us), 310.559
+[READ], MinLatency(us), 203
+[READ], MaxLatency(us), 35039
+[READ], 95thPercentileLatency(us), 352
+[READ], 99thPercentileLatency(us), 525
+[READ], Return=OK, 1000
+[CLEANUP], Operations, 1
+[CLEANUP], AverageLatency(us), 899.0
+[CLEANUP], MinLatency(us), 899
+[CLEANUP], MaxLatency(us), 899
+[CLEANUP], 95thPercentileLatency(us), 899
+[CLEANUP], 99thPercentileLatency(us), 899
