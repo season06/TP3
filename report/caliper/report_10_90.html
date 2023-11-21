@@ -158,10 +158,10 @@
                     </tr>
 
                     <tr>
-                         <td>init</td> <td>500</td> <td>0</td> <td>25.3</td> <td>1.61</td> <td>0.29</td> <td>0.75</td> <td>24.9</td>
+                         <td>init</td> <td>900</td> <td>0</td> <td>75.6</td> <td>12.72</td> <td>1.00</td> <td>9.76</td> <td>42.3</td>
                     </tr>
                     <tr>
-                         <td>query</td> <td>80</td> <td>0</td> <td>5.3</td> <td>0.62</td> <td>0.44</td> <td>0.51</td> <td>5.1</td>
+                         <td>query</td> <td>100</td> <td>0</td> <td>19.8</td> <td>14.22</td> <td>9.11</td> <td>12.83</td> <td>5.9</td>
                     </tr>
                 </table>
             </div>
@@ -171,7 +171,7 @@
                 <pre style="overflow: visible;white-space: pre-wrap;max-height:100%;">rateControl:
   type: fixed-rate
   opts:
-    tps: 25
+    tps: 900
 </pre>
                         <h3>Performance metrics for init</h3>
                             <table style="min-width: 100%;">
@@ -179,7 +179,7 @@
                                      <th>Name</th> <th>Succ</th> <th>Fail</th> <th>Send Rate (TPS)</th> <th>Max Latency (s)</th> <th>Min Latency (s)</th> <th>Avg Latency (s)</th> <th>Throughput (TPS)</th>
                                 </tr>
                                 <tr>
-                                     <td>init</td> <td>500</td> <td>0</td> <td>25.3</td> <td>1.61</td> <td>0.29</td> <td>0.75</td> <td>24.9</td>
+                                     <td>init</td> <td>900</td> <td>0</td> <td>75.6</td> <td>12.72</td> <td>1.00</td> <td>9.76</td> <td>42.3</td>
                                 </tr>
                             </table>
                         <h3>Resource utilization for init</h3>
@@ -188,11 +188,10 @@
             <div style="border-bottom: 1px solid #d9d9d9; padding-bottom: 10px;" id="query">
                 <h2>Benchmark round: query</h2>
                 <p></p>
-                <pre style="overflow: visible;white-space: pre-wrap;max-height:100%;">txDuration: 15
-rateControl:
+                <pre style="overflow: visible;white-space: pre-wrap;max-height:100%;">rateControl:
   type: fixed-rate
   opts:
-    tps: 5
+    tps: 19
 </pre>
                         <h3>Performance metrics for query</h3>
                             <table style="min-width: 100%;">
@@ -200,7 +199,7 @@ rateControl:
                                      <th>Name</th> <th>Succ</th> <th>Fail</th> <th>Send Rate (TPS)</th> <th>Max Latency (s)</th> <th>Min Latency (s)</th> <th>Avg Latency (s)</th> <th>Throughput (TPS)</th>
                                 </tr>
                                 <tr>
-                                     <td>query</td> <td>80</td> <td>0</td> <td>5.3</td> <td>0.62</td> <td>0.44</td> <td>0.51</td> <td>5.1</td>
+                                     <td>query</td> <td>100</td> <td>0</td> <td>19.8</td> <td>14.22</td> <td>9.11</td> <td>12.83</td> <td>5.9</td>
                                 </tr>
                             </table>
                         <h3>Resource utilization for query</h3>
@@ -214,19 +213,19 @@ rateControl:
   number: 5
 rounds:
   - label: init
-    txNumber: 500
+    txNumber: 900
     rateControl:
       type: fixed-rate
       opts:
-        tps: 25
+        tps: 900
     workload:
       module: benchmarks&#x2F;samples&#x2F;fabric&#x2F;marbles&#x2F;init.js
   - label: query
-    txDuration: 15
+    txNumber: 100
     rateControl:
       type: fixed-rate
       opts:
-        tps: 5
+        tps: 19
     workload:
       module: benchmarks&#x2F;samples&#x2F;fabric&#x2F;marbles&#x2F;query.js
 </pre>
