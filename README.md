@@ -2,12 +2,12 @@
 
 ## Environment
 - OS: Ubuntu 21.04
-- CPU: 2 core
+- CPU: 2 Cores
 - RAM: 4 GB
 ## Prerequest
 
 - Install Docker & Docker Compose  
-    > Follow the instruction from the official document  
+    > Follow the instructions from the official document  
     - [Install Docker Engine on Ubuntu](https://docs.docker.com/engine/install/ubuntu/)  
     - [Install and Use Docker Compose](https://www.digitalocean.com/community/tutorials/how-to-install-and-use-docker-compose-on-ubuntu-20-04)
 
@@ -30,11 +30,11 @@ tar xfvz ycsb-0.17.0.tar.gz
 cd ycsb-0.17.0
 
 # Load
-./bin/ycsb.sh load redis -s -P workloads/workloada -p "redis.host=127.0.0.1" -p "redis.port=6379"
+./bin/ycsb.sh load redis -s -P redis-cluster/workload -p "redis.host=127.0.0.1" -p "redis.port=6379"
 # Run
-./bin/ycsb.sh run redis -s -P workloads/workloada -p "redis.host=127.0.0.1" -p "redis.port=6379" > output.txt
+./bin/ycsb.sh run redis -s -P redis-cluster/workload -p "redis.host=127.0.0.1" -p "redis.port=6379" > output.txt
 ```
-- Reference
+- References
     - [YCSB (GitHub)](https://github.com/brianfrankcooper/YCSB)
     - [Core Workloads](https://github.com/brianfrankcooper/YCSB/wiki/Core-Workloads)
     - [Running a Workload](https://github.com/brianfrankcooper/YCSB/wiki/Running-a-Workload)
@@ -54,26 +54,24 @@ npm install --only=prod @hyperledger/caliper-cli@0.4
 cd networks/fabric/config_solo_raft/
 ./generate.sh
 
-# If if occurs an error about GOROOT
-# https://github.com/hyperledger/caliper/issues/955
+# If occurs an error about GOROOT, refer: https://github.com/hyperledger/caliper/issues/955
 docker pull hyperledger/fabric-ccenv:1.4.4
 docker tag hyperledger/fabric-ccenv:1.4.4 hyperledger/fabric-ccenv:latest
 
 npm install --save fabric-client fabric-ca-client
 curl https://raw.githubusercontent.com/creationix/nvm/v0.25.0/install.sh | bash
 
-# Change node(12.22.12) and nvm(6.14.16) version
+# Change versions of node(12.22.12) and nvm(6.14.16)
 npm install 12
 
-# Change to python2
+# Change to python2, refer to the instructions below to install virturalenv.
 source ~/py2/bin/activate
 
-# If `grpc_node.node not` found
-# https://blog.csdn.net/bean_business/article/details/108807977
+# If `grpc_node.node` not found, refer: https://blog.csdn.net/bean_business/article/details/108807977
 npm rebuild grpc --force
 
 # Run
-cd ~/tp3/caliper-benchmarks/
+cd ~/caliper-benchmarks/
 npx caliper bind --caliper-bind-sut fabric:1.4.11
 sudo npx caliper launch manager --caliper-workspace . --caliper-benchconfig benchmarks/samples/fabric/marbles/config.yaml --caliper-networkconfig networks/fabric/v1/v1.4.4/2org1peercouchdb_raft/fabric-go-tls-solo.yaml
 ```
@@ -92,6 +90,6 @@ python -V
 # Leave the virtual environment
 deactivate
 ```
-- Reference
+- References
     - [Hyperledger Fabric Docs](https://hyperledger-fabric.readthedocs.io/en/release-2.5/install.html)
     - [Hyperledger Caliper Docs](https://hyperledger.github.io/caliper/v0.5.0/installing-caliper/)
