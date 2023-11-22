@@ -1,0 +1,13 @@
+test:
+  workers:
+    type: local
+    number: 5
+  rounds:
+    - label: query
+      txNumber: 1000
+      rateControl:
+        type: fixed-rate
+        opts:
+          tps: 500
+      workload:
+        module: benchmarks/samples/fabric/marbles/query.js
