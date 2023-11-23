@@ -9,6 +9,10 @@ services:
       - REDIS_REPLICATION_MODE=master
       - ALLOW_EMPTY_PASSWORD=yes
       - REDIS_CLUSTER_CREATOR=yes
+    deploy:
+      resources:
+        limits:
+          memory: 512MB
 
   redis-replica:
     image: 'bitnami/redis:latest'
@@ -22,3 +26,8 @@ services:
       - REDIS_MASTER_PORT_NUMBER=6379
       - REDIS_MASTER_PASSWORD=""
       - ALLOW_EMPTY_PASSWORD=yes
+    deploy:
+      resources:
+        limits:
+          memory: 512MB
+
