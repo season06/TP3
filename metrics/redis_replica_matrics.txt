@@ -1,4 +1,4 @@
-CPU, MemUsage, NetIO, BlockIO
+CPU,Mem,Net,Block
 0.03%,4.973MiB / 512MiB,1.77MB / 762kB,41kB / 8.13MB
 0.03%,4.973MiB / 512MiB,1.77MB / 762kB,41kB / 8.13MB
 0.27%,4.973MiB / 512MiB,1.77MB / 763kB,41kB / 8.13MB
