@@ -19,12 +19,12 @@ def to_dataframe(string):
 
 
 def range_with_floats(start, stop, step):
-    while stop >= start:
+    while stop > start:
         yield start
         start += step
 
 
-def find_max_value(a, b):
+def find_max(a, b):
     if a > b:
         return a
     return b
@@ -37,7 +37,7 @@ def generate_cpu(sec, master_arr, replica_arr):
 
     plt.xticks(np.arange(min(sec), max(sec)+1, 0.5))
     plt.xlim(0, max(sec))
-    plt.ylim(0, find_max_value(max(master_arr), max(replica_arr)) + 5)
+    plt.ylim(0, find_max(max(master_arr), max(replica_arr)) + 5)
     plt.xlabel('Time (seconds)')
 
     plt.ylabel('CPU Usage (%)')
@@ -55,7 +55,7 @@ def generate_mem(sec, master_arr, replica_arr):
 
     plt.xticks(np.arange(min(sec), max(sec)+1, 0.5))
     plt.xlim(0, max(sec))
-    plt.ylim(0, find_max_value(max(master_arr), max(replica_arr)) + 10)
+    plt.ylim(0, find_max(max(master_arr), max(replica_arr)) + 10)
     plt.xlabel('Time (seconds)')
 
     plt.ylabel('Memory Usage (MiB)')
@@ -80,7 +80,7 @@ def generate_net(sec, master_arr, replica_arr):
 
     plt.xticks(np.arange(min(sec), max(sec)+1, 0.5))
     plt.xlim(0, max(sec))
-    plt.ylim(0, find_max_value(max(master_arr), max(replica_arr)) + 1000)
+    plt.ylim(0, find_max(max(master_arr), max(replica_arr)) + 1000)
     plt.xlabel('Time (seconds)')
 
     plt.ylabel('Net I/O (KB)')
@@ -98,7 +98,7 @@ def generate_block(sec, master_arr, replica_arr):
 
     plt.xticks(np.arange(min(sec), max(sec)+1, 0.5))
     plt.xlim(0, max(sec))
-    plt.ylim(0, find_max_value(max(master_arr), max(replica_arr)) + 20)
+    plt.ylim(0, find_max(max(master_arr), max(replica_arr)) + 20)
     plt.xlabel('Time (seconds)')
 
     plt.ylabel('Block I/O (KB)')
@@ -114,22 +114,28 @@ def main():
     replica_matrics = open('./0_100/redis_replica.txt', 'r').read()
 
     master_df = to_dataframe(master_matrics)
-    master_cpu_arr = master_df['CPU'].values.tolist()
-    master_mem_arr = master_df['Mem'].values.tolist()
-    master_net_arr = master_df['Net'].values.tolist()
-    master_block_arr = master_df['Block'].values.tolist()
-
     replica_df = to_dataframe(replica_matrics)
-    replica_cpu_arr = replica_df['CPU'].values.tolist()
-    replica_mem_arr = replica_df['Mem'].values.tolist()
-    replica_net_arr = replica_df['Net'].values.tolist()
-    replica_block_arr = replica_df['Block'].values.tolist()
 
-    sec = list(range_with_floats(0, len(master_cpu_arr)//2, 0.5))
+    master = {
+        'cpu': master_df['CPU'].values.tolist(),
+        'mem': master_df['Mem'].values.tolist(),
+        'net': master_df['Net'].values.tolist(),
+        'block': master_df['Block'].values.tolist()
+    }
+    replica = {
+        'cpu': replica_df['CPU'].values.tolist(),
+        'mem': replica_df['Mem'].values.tolist(),
+        'net': replica_df['Net'].values.tolist(),
+        'block': replica_df['Block'].values.tolist()
+    }
 
-    generate_cpu(sec, master_cpu_arr, replica_cpu_arr)
-    generate_mem(sec, master_mem_arr, replica_mem_arr)
-    generate_net(sec, master_net_arr, replica_net_arr)
-    generate_block(sec, master_block_arr, replica_block_arr)
+    sec = list(range_with_floats(0, len(master['cpu'])/2, 0.5))
 
-main()
+    generate_cpu(sec, master['cpu'], replica['cpu'])
+    generate_mem(sec, master['mem'], replica['mem'])
+    generate_net(sec, master['net'], replica['net'])
+    generate_block(sec, master['block'], replica['block'])
+
+
+if __name__ == "__main__":
+    main()

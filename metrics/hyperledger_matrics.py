@@ -14,12 +14,14 @@ def to_dataframe(string):
 
     return df
 
+
 def range_with_floats(start, stop, step):
-    while stop >= start:
+    while stop > start:
         yield start
         start += step
 
-def find_max_value(a, b, c):
+
+def find_max(a, b, c):
     max_ab = a if a > b else b
     max_value = max_ab if max_ab > c else c
     return max_value
@@ -33,7 +35,7 @@ def generate_cpu(sec, peer_arr, order_arr, db_arr):
 
     plt.xticks(np.arange(min(sec), max(sec)+1, 40.0))
     plt.xlim(0, max(sec))
-    plt.ylim(0, find_max_value(max(peer_arr), max(order_arr), max(db_arr)) + 10)
+    plt.ylim(0, find_max(max(peer_arr), max(order_arr), max(db_arr)) + 10)
     plt.xlabel('Time (seconds)')
 
     plt.ylabel('CPU Usage (%)')
@@ -52,7 +54,7 @@ def generate_mem(sec, peer_arr, order_arr, db_arr):
 
     plt.xticks(np.arange(min(sec), max(sec)+1, 40.0))
     plt.xlim(0, max(sec))
-    plt.ylim(0, find_max_value(max(peer_arr), max(order_arr), max(db_arr)) + 10)
+    plt.ylim(0, find_max(max(peer_arr), max(order_arr), max(db_arr)) + 10)
     plt.xlabel('Time (seconds)')
 
     plt.ylabel('Memory Usage (MiB)')
@@ -81,7 +83,7 @@ def generate_net(sec, peer_arr, order_arr, db_arr):
 
     plt.xticks(np.arange(min(sec), max(sec)+1, 40.0))
     plt.xlim(0, max(sec))
-    plt.ylim(0, find_max_value(max(peer_arr), max(order_arr), max(db_arr)) + 500)
+    plt.ylim(0, find_max(max(peer_arr), max(order_arr), max(db_arr)) + 500)
     plt.xlabel('Time (seconds)')
 
     plt.ylabel('Net I/O (KB)')
@@ -100,7 +102,7 @@ def generate_block(sec, peer_arr, order_arr, db_arr):
 
     plt.xticks(np.arange(min(sec), max(sec)+1, 40.0))
     plt.xlim(0, max(sec))
-    plt.ylim(0, find_max_value(max(peer_arr), max(order_arr), max(db_arr)) + 100)
+    plt.ylim(0, find_max(max(peer_arr), max(order_arr), max(db_arr)) + 100)
     plt.xlabel('Time (seconds)')
 
     plt.ylabel('Block I/O (KB)')
@@ -110,34 +112,42 @@ def generate_block(sec, peer_arr, order_arr, db_arr):
     plt.tight_layout()
     plt.show()
 
+
 def main():
     peer_matrics = open('./0_100/hyperledger_peer.txt', 'r').read()
     order_matrics = open('./0_100/hyperledger_order.txt', 'r').read()
     db_matrics = open('./0_100/hyperledger_db.txt', 'r').read()
 
     peer_df = to_dataframe(peer_matrics)
-    peer_cpu_arr = peer_df['CPU'].values.tolist()
-    peer_mem_arr = peer_df['Mem'].values.tolist()
-    peer_net_arr = peer_df['Net'].values.tolist()
-    peer_block_arr = peer_df['Block'].values.tolist()
-
     order_df = to_dataframe(order_matrics)
-    order_cpu_arr = order_df['CPU'].values.tolist()
-    order_mem_arr = order_df['Mem'].values.tolist()
-    order_net_arr = order_df['Net'].values.tolist()
-    order_block_arr = order_df['Block'].values.tolist()
-
     db_df = to_dataframe(db_matrics)
-    db_cpu_arr = db_df['CPU'].values.tolist()
-    db_mem_arr = db_df['Mem'].values.tolist()
-    db_net_arr = db_df['Net'].values.tolist()
-    db_block_arr = db_df['Block'].values.tolist()
 
-    sec = list(range_with_floats(0, len(order_cpu_arr)//2, 0.5))
+    peer = {
+        'cpu': peer_df['CPU'].values.tolist(),
+        'mem': peer_df['Mem'].values.tolist(),
+        'net': peer_df['Net'].values.tolist(),
+        'block': peer_df['Block'].values.tolist()
+    }
+    order = {
+        'cpu': order_df['CPU'].values.tolist(),
+        'mem': order_df['Mem'].values.tolist(),
+        'net': order_df['Net'].values.tolist(),
+        'block': order_df['Block'].values.tolist()
+    }
+    db = {
+        'cpu': db_df['CPU'].values.tolist(),
+        'mem': db_df['Mem'].values.tolist(),
+        'net': db_df['Net'].values.tolist(),
+        'block': db_df['Block'].values.tolist()
+    }
 
-    generate_cpu(sec, peer_cpu_arr, order_cpu_arr, db_cpu_arr)
-    generate_mem(sec, peer_mem_arr, order_mem_arr, db_mem_arr)
-    generate_net(sec, peer_net_arr, order_net_arr, db_net_arr)
-    generate_block(sec, peer_block_arr, order_block_arr, db_block_arr)
+    sec = list(range_with_floats(0, len(peer['cpu'])/2, 0.5))
 
-main()
+    generate_cpu(sec, peer['cpu'], order['cpu'], db['cpu'])
+    generate_mem(sec, peer['mem'], order['mem'], db['mem'])
+    generate_net(sec, peer['net'], order['net'], db['net'])
+    generate_block(sec, peer['block'], order['block'], db['block'])
+
+
+if __name__ == "__main__":
+    main()
